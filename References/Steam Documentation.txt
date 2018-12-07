@@ -1,0 +1,12 @@
+It has 3 control characters '{', '}' and '"'. Names and values may be quoted or
+not. The quote '"' charater must not be used within name or values, only for
+quoting whole tokens. You may use escape sequences wile parsing and add within a
+quoted token a \" to add quotes within your name or token. When using Escape
+Sequence the parser must now that by setting KeyValues::UsesEscapeSequences( true ),
+which it's off by default. Non-quoted tokens ends with a whitespace, '{', '}' and '"'.
+So you may use '{' and '}' within quoted tokens, but not for non-quoted tokens.
+An open bracket '{' after a key name indicates a list of subkeys which is finished
+with a closing bracket '}'. Subkeys use the same definitions recursively.
+Whitespaces are space, return, newline and tabulator. Allowed Escape sequences
+are \n, \t, \\, \n and \". The number character '#' is used for macro purposes 
+(eg #include), don't use it as first charater in key names.
