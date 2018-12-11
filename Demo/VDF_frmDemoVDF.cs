@@ -28,7 +28,7 @@ namespace Demo
         {
             string steamdir = SteamAppsManager.GetSteamDirectory(); //Set the initial directory of the openFileDialog control by calling the GetSteamDirectory static method from the SteamAppsMan class. It'll return empty if Steam Directory doesn't exist. 
             if (!string.IsNullOrWhiteSpace(steamdir)) //If the steamdir is not null or whitespace, append the "steamapps" directory name.
-                steamdir += "\\" + SteamAppsManager.STEAM_APPS_DIRNAME;
+                steamdir += "\\steamapps";
             openFileDialog.InitialDirectory = steamdir;
         }
 

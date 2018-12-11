@@ -11,7 +11,7 @@ namespace Indieteur.SAMAPI
     public static class Extension
     {
         /// <summary>
-        /// Locate a Steam App using its name.
+        /// Locate a Steam App using its name in the SteamApps collection.
         /// </summary>
         /// <param name="listofapps"></param>
         /// <param name="name">Name of the app to locate.</param>
@@ -43,7 +43,7 @@ namespace Indieteur.SAMAPI
         }
 
         /// <summary>
-        /// Locate a Steam App using its unique ID.
+        /// Locate a Steam App using its unique ID in the SteamApps collection.
         /// </summary>
         /// <param name="listofapps"></param>
         /// <param name="AppID">The unique identifier of the application.</param>

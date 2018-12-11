@@ -5,16 +5,16 @@ using Microsoft.Win32;
 namespace Indieteur.SAMAPI
 {
     /// <summary>
-    /// Provides read only basic information about the Steam Applications. (e.g. List of Installed Steam Apps, Steam App update, launch, quit and basic process detection.) 
+    /// Provides read only basic information about the Steam Applications installed on the local computer. (e.g. List of Installed Steam Apps, Steam App update, launch, quit and basic process detection.) 
     /// </summary>
     public partial class SteamAppsManager
     {
         //Default Directory or Executable names
-        public const string STEAM_APPS_DIRNAME = "steamapps";
-        public const string STEAM_APPS_COMMON_DIRNAME = "common";
-        public const string STEAM_NAME = "steam";
-        public const string STEAM_API_LIBNAME = "steam_api";
-        public const string STEAM_API_LIBNAME_x64 = "steam_api64";
+        internal const string STEAM_APPS_DIRNAME = "steamapps";
+        internal const string STEAM_APPS_COMMON_DIRNAME = "common";
+        internal const string STEAM_NAME = "steam";
+        internal const string STEAM_API_LIBNAME = "steam_api";
+        internal const string STEAM_API_LIBNAME_x64 = "steam_api64";
 
 
         //Default path of the steam registry keys

@@ -9,7 +9,7 @@ namespace Indieteur.VDFAPI
     public static class NodesListExtensionMethod
     {
         /// <summary>
-        /// Finds a node from a node collection by using the Name field.
+        /// Finds a node in a node collection by using the Name field.
         /// </summary>
         /// <param name="nodes">The collection of nodes to search through.</param>
         /// <param name="Name">The name of the node that the method needs to find.</param>
@@ -24,7 +24,7 @@ namespace Indieteur.VDFAPI
             return null;
         }
         /// <summary>
-        /// Finds a node from a node collection by using the Name field and returns the index of the node if found.
+        /// Finds a node in a node collection by using the Name field and returns the index of the node if found.
         /// </summary>
         /// <param name="nodes">The collection of nodes to search through.</param>
         /// <param name="Name">The name of the node that the method needs to find.</param>
@@ -85,7 +85,7 @@ namespace Indieteur.VDFAPI
             return newNode; //return our newly duplicated node.
         }
         /// <summary>
-        /// Change the parent of the node if it already has one. If it doesn't, adds the node to the list of children of the node that will become the parent. Can also make the node a root node.
+        /// Moves the selected node to a new parent node/to the root. 
         /// </summary>
         /// <param name="node">The node to be moved.</param>
         /// <param name="newParent">The new parent of the node. NOTE: If you want the node to be a root node, set this to null.</param>

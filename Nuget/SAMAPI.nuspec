@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Indieteur.SteamAppsManAndVDFAPI</id>
+    <version>1.0.0</version>
+    <title>Indieteur.SteamAppsManAndVDFAPI</title>
+    <authors>Indieteur</authors>
+    <licenseUrl>https://github.com/Indieteur/Steam-Apps-Management-API/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Indieteur/Steam-Apps-Management-API</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Provides basic information about the Steam Applications installed on the local computer. It also allows you to launch an app as well as listen for events like if a Steam App is being launched and/or is being updated. The library can also capture the process pertaining to the application. The library also allows you to read and write Valve Data Format (.VDF) files.</description>
+    <copyright>Copyright Indieteur 2018</copyright>
+    <tags>VDF, Steam, Applications, Apps, Management, Manager, Events, Listener, Listen, Start, Update, Begin, Execute, Process, Inject, Kill</tags>
+  </metadata>
+  <files>
+	<file src="source\Indieteur.VDFAPI.dll" target="lib\Indieteur.VDFAPI.dll" />
+	<file src="source\Indieteur.SAMAPI.dll" target="lib\Indieteur.SAMAPI.dll" />
+	<file src="readme.txt" target="" />
+  </files>
+</package>

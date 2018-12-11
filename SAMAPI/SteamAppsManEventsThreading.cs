@@ -55,8 +55,8 @@ namespace Indieteur.SAMAPI
         /// <param name="Interval">The interval between checks in milliseconds.</param>
         public void StartListeningForEvents (int Interval = 1000)
         {
-            if (listenerShouldRun > 0)
-                throw new ThreadStateException("A listener thread has already been instantiated!");
+            if (listenerThread != null && listenerThread.IsAlive)
+                throw new ThreadStateException("A listener thread is already running!");
             Interlocked.Exchange(ref listenerShouldRun, 1); //Similar to listenerShouldRun = 1; but for thread safety reason, we need to do call this method instead.
             Interlocked.Exchange(ref listener_interval, Interval);
             listenerThread = new Thread(new ThreadStart(ListenerThreadMethod)); //Create a new thread which will call the method ListenerThreadMethod.
@@ -64,7 +64,7 @@ namespace Indieteur.SAMAPI
         }
 
         /// <summary>
-        /// Sets the interval between checks.
+        /// Sets the interval between Event Listener checks.
         /// </summary>
         /// <param name="Interval">The interval between checks in milliseconds.</param>
         public void SetEventListenerInterval (int Interval)
@@ -75,7 +75,7 @@ namespace Indieteur.SAMAPI
         }
 
         /// <summary>
-        /// Stops the thread which listens for events. (NOTE: A delay might occur before the thread completely stops executing.)
+        /// Stops the thread which is listening for events. (NOTE: A delay might occur before the thread completely stops executing.)
         /// </summary>
         public void StopListeningForEvents()
         {

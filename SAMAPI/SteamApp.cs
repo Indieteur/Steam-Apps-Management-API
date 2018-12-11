@@ -11,7 +11,7 @@ using Indieteur.VDFAPI;
 namespace Indieteur.SAMAPI
 {
     /// <summary>
-    /// A Steam Application.
+    /// Provides basic read only information about a single Steam Application.
     /// </summary>
     public class SteamApp
     {
@@ -29,7 +29,7 @@ namespace Indieteur.SAMAPI
         /// </summary>
         public int AppID { get { return _AppID; } }
         /// <summary>
-        /// The installation directory of the Steam Application.
+        /// The path to the installation directory of the Steam Application.
         /// </summary>
         public string InstallDir { get { return _InstallDir; } }
         /// <summary>
@@ -37,19 +37,19 @@ namespace Indieteur.SAMAPI
         /// </summary>
         public string InstallDirName { get { return _InstallDirName; } }
         /// <summary>
-        /// Returns true if the app is updating. (The Event listener must be running or the CheckAppsStatus method must be invoked to detect this)
+        /// Returns true if the status of the Steam Application was set to updating by the Steam Client and false if not. (This field only gets updated if the Event Listener is running or the CheckForEvents/UpdateAppStatus method was called beforehand.)
         /// </summary>
         public bool IsUpdating { get { return _isUpdating; } }
         /// <summary>
-        /// Returns true if the app is running as per Steam. (The Event listener must be running or the CheckAppsStatus method must be invoked to detect this.)
+        /// Returns true if the status of the Steam Application was set to running by the Steam Client and false if not. (This field only gets updated if the Event Listener is running or the CheckForEvents/UpdateAppStatus method was called beforehand.)
         /// </summary>
         public bool IsRunning { get { return _isRunning; } }
         /// <summary>
-        /// Returns a Process class instance which contains detailed information about the running process of the application. (The Event listener must be running or the CheckAppsStatus method must be invoked to detect this.)
+        /// Returns a Process class instance which contains detailed information about the running process pertaining to the application. (This field only gets updated if the Event Listener is running or the CheckForEvents/UpdateAppStatus method was called beforehand.)
         /// </summary>
         public Process RunningProcess { get { return _runningProc; } }
         /// <summary>
-        /// Indicates the executable name of the application (without the .exe) which will be used to locate the running process when the app is launched. If left empty, the library will try to guess which process pertains to the app. 
+        /// Indicates the executable name of the application (without the .exe) which will be used to locate the running process when the app is launched. If left empty, the library will try to guess which process pertains to the app.
         /// </summary>
         public string ProcessNameToFind
         {
@@ -73,6 +73,9 @@ namespace Indieteur.SAMAPI
 
         int _AppID;
 
+        /// <summary>
+        /// Returns the VDF Data Structure pertaining to the Steam Application which was parsed to retrieve information like the Name, AppId, etc. of the app.
+        /// </summary>
         public VDFData UnparsedData { get { return _unparsedData; } }
         VDFData _unparsedData;
        
@@ -157,7 +160,7 @@ namespace Indieteur.SAMAPI
         }
 
         /// <summary>
-        /// Launches the Steam Application.
+        /// Launches the Steam Application by calling "steam://rungameid/[AppID]".
         /// </summary>
         public void Launch()
         {
@@ -165,7 +168,7 @@ namespace Indieteur.SAMAPI
         }
 
         /// <summary>
-        /// Checks if the Steam Application is running or updating and updates the fields IsUpdating, RunningProcess and IsRunning accordingly.
+        /// Checks if the Steam Application is running or updating by checking certain registry keys and updates the fields IsUpdating and IsRunning accordingly. Also, sets the RunningProcess field if the process pertaining to the app is found.
         /// </summary>
         public void UpdateAppStatus()
         {

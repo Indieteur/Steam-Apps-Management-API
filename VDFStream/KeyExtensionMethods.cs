@@ -9,7 +9,7 @@ namespace Indieteur.VDFAPI
     public static class KeyListExtensionMethods 
     {
         /// <summary>
-        ///  Finds a Key from a Key collection by using the Name field. 
+        ///  Finds a Key in a Key collection by using the Name field. 
         /// </summary>
         /// <param name="keys">The key collection that contains the key that the method will search for.</param>
         /// <param name="Name">The name of the key that the method will search for.</param>
@@ -24,7 +24,7 @@ namespace Indieteur.VDFAPI
             return null;
         }
         /// <summary>
-        ///  Finds a Key from a Key collection by using the Name field and returns the index of the key if found.
+        ///  Finds a Key in a Key collection by using the Name field and returns the index of the key if found.
         /// </summary>
         /// <param name="keys">The key collection that contains the key that the method will search for.</param>
         /// <param name="Name">The name of the key that the method will search for.</param>
