@@ -51,8 +51,8 @@ namespace Indieteur.VDFAPI
             if (i == -1) //The FindBaseTokenIndex method will do the error handling for us. However, if the argument throwErrorIfNotFound is set to false, it wouldn't do that so what'll do is exit from this method if the func returns -1.
                 return;
             VDFNode tNode = nodes[i];//cache our node.
-            tNode.Parent = null; //Set the parent of the node to null.
-            nodes.RemoveAt(i); //Remove node from the parent's node list.
+            tNode.Parent = null; 
+            nodes.RemoveAt(i);
             if (FullRemovalFromTheVDFStruct)
                 tNode.ParentVDFStructure = null;
         }
@@ -82,7 +82,7 @@ namespace Indieteur.VDFAPI
                         newNode.Keys.Add(curKey.Duplicate(newNode));
                     }
             
-            return newNode; //return our newly duplicated node.
+            return newNode; 
         }
         /// <summary>
         /// Moves the selected node to a new parent node/to the root. 
@@ -91,19 +91,16 @@ namespace Indieteur.VDFAPI
         /// <param name="newParent">The new parent of the node. NOTE: If you want the node to be a root node, set this to null.</param>
         public static void Migrate(this VDFNode node, VDFNode newParent)
         {
-            //Check if the parent of the node is set to something.
+            
             if (node.Parent != null)
             {
-                //If we have a parent node, remove the node from the list of children nodes of the parent node.
                 node.Parent.Nodes.Remove(node); 
-                node.Parent = null; //Set the parent property of our node to null.
+                node.Parent = null; 
             }
-            //Check if the newParent variable is null or not
             if (newParent != null)
             {
-                //If it isn't, set the parent property of our node to the newParent node.
                 node.Parent = newParent;
-                newParent.Nodes.Add(node); //Make sure to add the node we are currently manipulating to the list of children of the newParent node.
+                newParent.Nodes.Add(node);
             }
         }
 
@@ -118,17 +115,19 @@ namespace Indieteur.VDFAPI
             if (node.Parent != null)
             {
                
-                //If we have a parent node, remove the node from the list of children nodes of the parent node.
                 node.Parent.Nodes.Remove(node);
-                node.Parent = null; //Set the parent property of our node to null.
+                node.Parent = null;
                 if (FullRemovalFromTheVDFStruct) 
                     node.ParentVDFStructure = null;
             }
             else
             {
-                if (node.ParentVDFStructure == null || !FullRemovalFromTheVDFStruct) //If Node's parent is set to null and the argument throwErrorOnNoParent is set to true, throw an error.
-                    throw new NullReferenceException("Node " + node.Name + " parent property is not set!");
-                node.ParentVDFStructure.Nodes.Remove(node);//Make sure we remove the node from the list of root nodes of the VDF Data Structure.
+                if (node.ParentVDFStructure == null || !FullRemovalFromTheVDFStruct)
+                    if (throwErrorOnNoParent)
+                        throw new NullReferenceException("Node " + node.Name + " parent property is not set!");
+                    else
+                        return;
+                node.ParentVDFStructure.Nodes.Remove(node);
                 node.ParentVDFStructure = null;
                 
             }
