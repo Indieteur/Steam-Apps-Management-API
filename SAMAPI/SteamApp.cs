@@ -108,10 +108,10 @@ namespace Indieteur.SAMAPI
         /// <param name="LibPath">The path of the library containing the application.</param>
         void init (VDFData vdfdata, string LibPath)
         {
-            if (vdfdata == null) //Make sure to check if the vdf data is set to null.
+            if (vdfdata == null) 
                 throw new ArgumentNullException("Argument VDF Data is set to null!");
 
-            if (vdfdata.Nodes == null || vdfdata.Nodes.Count == 0) //Same with the nodes list
+            if (vdfdata.Nodes == null || vdfdata.Nodes.Count == 0) 
                 throw new NullReferenceException("Nodes of VDFData is either null or empty!");
 
             _unparsedData = vdfdata;
@@ -126,17 +126,17 @@ namespace Indieteur.SAMAPI
 
             VDFKey vKey = vNode.Keys.FindKey(MANIFEST_KEY_NAME); //Locate our first key which will be the name of the app.
 
-            if (vKey != null) //If we found the key, set the value of the app name to the value of the key. Otherwise, throw an error.
+            if (vKey != null) 
                 _Name = vKey.Value;
             else
                 throw new NullReferenceException("Key pertaining to the name of the app is not found under " + MANIFEST_NODE + " node.");
 
-            vKey = vNode.Keys.FindKey(MANIFEST_KEY_APPID); //Locate our AppID key.
+            vKey = vNode.Keys.FindKey(MANIFEST_KEY_APPID); 
 
-            if (vKey != null) //If we found the key...
+            if (vKey != null) 
             {
                 int tryresult;
-                if (int.TryParse(vKey.Value,out tryresult)) //Try converting it to integer. If it works, set the AppID's value to that. If it doesn't, throw an error.
+                if (int.TryParse(vKey.Value,out tryresult)) 
                 {
                     _AppID = tryresult;
                 }
@@ -146,12 +146,12 @@ namespace Indieteur.SAMAPI
             else
                 throw new NullReferenceException("Key pertaining to the Application ID of the app is not found under " + MANIFEST_NODE + " node.");
 
-            vKey = vNode.Keys.FindKey(MANIFEST_KEY_INSDIR); //Locate our installation directory key.
+            vKey = vNode.Keys.FindKey(MANIFEST_KEY_INSDIR); 
 
             if (vKey != null)
             {
-                _InstallDir = LibPath + "\\" + SteamAppsManager.STEAM_APPS_DIRNAME + "\\" + SteamAppsManager.STEAM_APPS_COMMON_DIRNAME + "\\" + vKey.Value; //Set the install path variable
-                _InstallDirName = vKey.Value; //Set the install folder name variable.
+                _InstallDir = LibPath + "\\" + SteamAppsManager.STEAM_APPS_DIRNAME + "\\" + SteamAppsManager.STEAM_APPS_COMMON_DIRNAME + "\\" + vKey.Value; 
+                _InstallDirName = vKey.Value; 
 
             }
             else
@@ -175,10 +175,10 @@ namespace Indieteur.SAMAPI
             string regPath = SteamAppsManager.REG_STEAM + "\\" + SteamAppsManager.REG_APPS_KEY + "\\" + AppID.ToString(); //We can know if the application is running or updating by checking certain values under this registry key.
             int isRunningOrUpdating = Helper.HKCU_RegGetKeyInt(regPath, SteamAppsManager.REG_RUNNING_KEY); //The first value we check is if the application is running. Retrieve the value on registry using our helper method.
             if (isRunningOrUpdating < 0)
-                throw new NullReferenceException("Running key under " + regPath + " registry path is not found!"); //Throw an error if the key or value was not found.
-            else if (isRunningOrUpdating > 0) //If the application is running.
+                throw new NullReferenceException("Running key under " + regPath + " registry path is not found!"); 
+            else if (isRunningOrUpdating > 0) 
             {
-                if (_runningProc == null) //Check if we already found the process pertaining to this app. If not, search for that process.
+                if (_runningProc == null) 
                 {
                     string tExeName = _exeName; //For thread safety purposes. Cache the string value.
                     _runningProc = Helper.FindAppProcess(_InstallDir, tExeName); //Only perform the search helper method when the process hasn't been located yet as the execution is costly.
@@ -189,10 +189,10 @@ namespace Indieteur.SAMAPI
                     if (_runningProc.HasExited) //If Running process has already exited then set the _runningProc to null. This should also fix problems for launcher apps being set as the RunningProcess and never being updated when the main app has been launched.
                         _runningProc = null;
                 }
-                _isRunning = true; //Set the field IsRunning to true.
+                _isRunning = true; 
                 
             }
-            else //if the application is not running (isRunningOrUpdating == 0)
+            else 
             {
                 _isRunning = false; 
                 _runningProc = null; //Make sure to set the RunningProcess field to nothing.

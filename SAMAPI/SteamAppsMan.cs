@@ -59,8 +59,8 @@ namespace Indieteur.SAMAPI
         /// </summary>
         public SteamAppsManager()
         {
-            _installdir = GetSteamDirectory(); //Retrieve the steam directory using our helper method.
-            if (string.IsNullOrWhiteSpace(_installdir)) //Check if we are able to retrieve the directory of Steam. If the method wasn't able to, throw an error.
+            _installdir = GetSteamDirectory(); 
+            if (string.IsNullOrWhiteSpace(_installdir))
                 throw new NullReferenceException("Steam Directory was not found!");
             Init();
            
@@ -72,7 +72,7 @@ namespace Indieteur.SAMAPI
         public void Refresh()
         {
             bool isEventListenerRunning = false; //This variable will tell us if the event listener should be started again after the refresh.
-            if (listenerThread.IsAlive) //Is the event listener running right now?
+            if (listenerThread.IsAlive) 
             {
                 if (listenerShouldRun > 0) //Now, this one is different. It checks if the event listener was set to run as per the user. 
                 {
@@ -95,8 +95,8 @@ namespace Indieteur.SAMAPI
         /// </summary>
         void Init()
         {
-            _libraryFolders = LibraryFoldersHelper.RetrieveLibraryFolders(_installdir); //Call the helper method which will perform the retrieval of library directories for us.
-            _steamapps = LibraryFoldersHelper.RetrieveSteamAppsUnderLibraryFolders(_libraryFolders); //Same with this one.
+            _libraryFolders = LibraryFoldersHelper.RetrieveLibraryFolders(_installdir);
+            _steamapps = LibraryFoldersHelper.RetrieveSteamAppsUnderLibraryFolders(_libraryFolders); 
         }
 
         /// <summary>
@@ -113,11 +113,11 @@ namespace Indieteur.SAMAPI
                     Object value = key.GetValue(REG_INSTALLPATH_KEY); //Find the "InstallPath" value in the Steam Registry Key. It'll return it as an object which we will need to cast
                     if (value != null)
                     {
-                        return (string)value; //Return the value but cast it as a string first as it is a string type value.
+                        return (string)value; //Value is a string so we should be able to cast it without any problems.
                     }
                 }
             }
-            return ""; //If key or value isn't found, return an empty string.
+            return ""; 
         }
 
     }

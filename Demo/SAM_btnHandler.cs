@@ -40,15 +40,15 @@ namespace Demo
         }
 
 
-        void StopApp(ListBoxItem lbi) //Stops the selected app from running if it is running.
+        void StopApp(ListBoxItem lbi)
         {
             lbi.AssociatedApp.RunningProcess.CloseMainWindow(); //Change this to kill or KillProcessAndChildren instead of CloseMainWindow for an immediate termination of process.
         }
-        void RunApp(ListBoxItem lbi) //Starts the selected app.
+        void RunApp(ListBoxItem lbi)
         {
             try
             {
-                lbi.AssociatedApp.Launch(); //Launch our application. 
+                lbi.AssociatedApp.Launch();
             }
             catch
             {
@@ -57,9 +57,9 @@ namespace Demo
             }
         }
 
-        void OpenDir(string path) //THis is called when the Open on File Explorer button is pressed.
+        void OpenDir(string path) 
         {
-            if (!Directory.Exists(path)) //Check first if the directory exists.
+            if (!Directory.Exists(path)) 
                 MessageBox.Show("Directory " + path + " does not exist!", "Steam Apps Management", MessageBoxButtons.OK, MessageBoxIcon.Error);
             try
             {
@@ -67,7 +67,7 @@ namespace Demo
             }
             catch
             {
-                //If we encountered an error, let our user know.
+              
                 MessageBox.Show("An error has occured when opening directory " + path , "Steam Apps Management", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -83,7 +83,7 @@ namespace Demo
             if (tmrEvents.Enabled) //stop our timer first before we do anything.
                 tmrEvents.Stop();
             SAM.Refresh(); //Perform the refresh.
-            GUI_Reset(); //Reset the GUI to defaults as the listbox will have nothing selected.
+            GUI_Reset(); 
             LoadSteamAppsToListBox(); //Reload data to list box.
         }
 

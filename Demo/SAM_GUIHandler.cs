@@ -30,7 +30,7 @@ namespace Demo
         {
             if (Listening) //Check if the user wants us to start listening for events.
             {
-                btnStartWatchEvents.Text = BTN_EVENT_STOP; //Set the button's caption to the correct one.
+                btnStartWatchEvents.Text = BTN_EVENT_STOP; 
                 groupStatus.Enabled = true;
                 //No need to do anything else as the event listening should start immediately.
             }

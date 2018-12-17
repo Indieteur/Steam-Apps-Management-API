@@ -20,13 +20,13 @@ namespace Demo
             catch (Exception ex)
             {
                 NullReferenceException nullRefException = ex as NullReferenceException;  //The library will throw a null reference exception when it cannot find installation directory.
-                if (nullRefException != null) //Check if the exception thrown is a nullref.
+                if (nullRefException != null) 
                 {
                     MessageBox.Show("Steam installation folder was not found! Please provide the path to the Steam installation folder.", "Steam App Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DialogResult dResult = folderBrowse.ShowDialog(); //Show the dialog which will allow the user to browse the steam installation directory manually.
-                    if (dResult == DialogResult.Cancel)
+                    if (dResult == DialogResult.Cancel)//If the user aborts the operation...
                     {
-                        OnLoadFailed(); //If the user aborts the operation...
+                        OnLoadFailed(); 
                         return;
                     }
                     TryLoadManual(folderBrowse.SelectedPath); //If the user selects a directory...
@@ -42,7 +42,7 @@ namespace Demo
             bool loadOK = false; //This variable will tell the loop if the steam library was loaded successfully.
             while (!loadOK) //Loop until we have successfully loaded the library or when the user aborts the operation.
             {
-                if (string.IsNullOrWhiteSpace(Path) || !Directory.Exists(Path)) //Check if Path is valid.
+                if (string.IsNullOrWhiteSpace(Path) || !Directory.Exists(Path)) 
                 {
                     Path = OnInvalidPathSelected(); //Call the method which will show the user the browse dialog.
                     continue; //Iterate again so that the check path is valid statement will be called again.

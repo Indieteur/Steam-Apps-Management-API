@@ -11,7 +11,7 @@ namespace Demo
     {
         private void lstApps_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lstApps.SelectedItem == null) //Make sure that we are referencing anything before we call the UpdateGUIElements method.
+            if (lstApps.SelectedItem == null)
                 return;
             UpdateGUIElements(lstApps.SelectedItem as ListBoxItem); //This method will update the textboxes and the checkboxes for us.
 
@@ -20,7 +20,7 @@ namespace Demo
         void LoadSteamAppsToListBox() //This method loads the steam apps to the list box.
         {
             GUI_BaseControlsEnabled(false); //Make sure that we disable the main controls first as we do not want the user to click either the refresh button again or the Start/Stop Watching Event when we are refreshing the library.
-            lstApps.Items.Clear(); //Clear the list of items in the list box.
+            lstApps.Items.Clear(); 
             foreach (SteamApp sapp in SAM.SteamApps) //loop through all the apps and add them to the list box by using the ListBoxItem class.
             {
                 ListBoxItem lbi = new ListBoxItem(sapp.Name, sapp, SAM);

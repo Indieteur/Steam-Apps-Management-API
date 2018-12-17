@@ -28,11 +28,11 @@ namespace Indieteur.SAMAPI
             foreach (SteamApp sapp in listofapps)
             {
                 string compareName; //Will store the name of the steam app we are checking
-                if (CaseSensitive) //If case Sensitive is set to true, set compareName exactly to the Name of the steam app
+                if (CaseSensitive) 
                     compareName = sapp.Name;
-                else
+                else //If case Sensitive is set to false, set compareName's value to the Name of the steam app in lower case.
                     compareName = sapp.Name.ToLower();
-                if (compareName == name)// If we have similar names then we have the app.
+                if (compareName == name)
                     return sapp;
 
             }
@@ -53,7 +53,7 @@ namespace Indieteur.SAMAPI
         {
             foreach (SteamApp sapp in listofapps) //loop through our list of apps
             {
-                if (sapp.AppID == AppID) //If we the AppID arg matches with the app id of the Steam App we are checkig then we found our app.
+                if (sapp.AppID == AppID)
                     return sapp;
             }
             if (ThrowErrorOnNotFound)

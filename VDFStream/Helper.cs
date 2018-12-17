@@ -89,9 +89,9 @@ namespace Indieteur.VDFAPI
         /// <returns></returns>
         public static char Peek(int index, char[] array)
         {
-            if (array.Length <= index) //Check if the index passed is larger than or equal to the size of the array. If it is, we return empty char.
+            if (array.Length <= index) 
                 return '\0';
-            return array[index]; //Return the character value of the element if it exists.
+            return array[index]; 
            
         }
         
@@ -115,7 +115,7 @@ namespace Indieteur.VDFAPI
                     return "\\";
                 case '"': //Double Quote
                     return "\"";
-                default: //Throw an error if it isn't any of the characters above.
+                default: //If it isn't any of the characters above
                     throw new VDFStreamException("Invalid escape character detected!", line, characterPos);
             }
         }

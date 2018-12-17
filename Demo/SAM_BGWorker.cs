@@ -16,7 +16,7 @@ namespace Demo
             txtAppID.Text = lbi.AssociatedApp.AppID.ToString();
             txtInstallDir.Text = lbi.AssociatedApp.InstallDir;
            
-            btnOpenFileExplore.Enabled = true; //Enable the Open File Explorer button.
+            btnOpenFileExplore.Enabled = true; 
            
             if (SAM.EventListenerRunning) //Check if the event listener is running as it is useless to update the Running, Updating Checkboxes and the PID textbox if it isn't.
             {
@@ -35,7 +35,7 @@ namespace Demo
         void UpdateAppStatus(ListBoxItem lbi)  //This method is called when the user selects a listbox item and the event listener is running. (Will be called continually every second if there's an item selected on the list box.)
         {
             cboxIsRunning.Checked = lbi.AssociatedApp.IsRunning; //Set the value of the Running checkbox accordingly.
-            if (lbi.AssociatedApp.IsRunning) //Also make sure to enable the Launch button if the application isn't running already or vice versa.
+            if (lbi.AssociatedApp.IsRunning) 
                 btnLaunchApp.Enabled = false;
             else
             {
@@ -45,12 +45,12 @@ namespace Demo
                
             cboxIsUpdating.Checked = lbi.AssociatedApp.IsUpdating;
             Process proc = lbi.AssociatedApp.RunningProcess; //Check if we have found the associated process for the selected app.
-            if (proc != null) //If we did, set the PID text box value to the ID of the Process and enable the Exit App button.
+            if (proc != null) 
             {
                 txtPID.Text = proc.Id.ToString();
                 btnExitApp.Enabled = true;
             }
-            else //Otherwise...
+            else 
             {
                 txtPID.Text = "";
             }

@@ -70,7 +70,7 @@ namespace Indieteur.VDFAPI
         /// <param name="stream"></param>
         public VDFData(char[] stream)
         {
-            LoadData(stream); //Call the LoadData method and pass on the stream argument.
+            LoadData(stream); 
         }
 
         /// <summary>
@@ -81,8 +81,8 @@ namespace Indieteur.VDFAPI
         {
 
             Nodes = new List<VDFNode>(1); //We are adding nodeToAdd to the list so let's explicitly instantiate a List<Node> with the length of 1 element.
-            nodeToAdd.ParentVDFStructure = this; //Change the ParentVDFStructure property of the added node to this instance of VDFData.
-            Nodes.Add(nodeToAdd); //Add nodeToAdd to the list.
+            nodeToAdd.ParentVDFStructure = this; 
+            Nodes.Add(nodeToAdd); 
 
         }
 
@@ -108,7 +108,7 @@ namespace Indieteur.VDFAPI
         {
             if (dataIsPath) //If dataIsPath is set to true, it means the data argument tells us the location of the file that contains the actual data.
             {
-                if (!File.Exists(data)) //Check if file exists. Throw an error if it doesn't.
+                if (!File.Exists(data)) 
                     throw new FileNotFoundException("File " + data + " is not found!");
                 LoadData(File.ReadAllText(data).ToCharArray()); //Read all the contents of the file and convert it into a char array which we can then parse using the LoadData function.
             }
@@ -126,7 +126,7 @@ namespace Indieteur.VDFAPI
         {
             if (stream.Length < SMALLEST_VDFDATA.Length) //Check if the length of the char array is equal to or larger than the smallest VDF data structure possible. If it isn't, we can safely assume that it is not a VDF data thus we can exit from the constructor.
                 throw new VDFStreamException("Provided data is not a valid VDF Data structure!");
-            ResetReaderVariables(); //Reset the variables needed and initalize the Nodes list.
+            ResetReaderVariables(); 
 
             int i = 0;
             while (i < stream.Length) //Loop through the our characters array
@@ -145,16 +145,16 @@ namespace Indieteur.VDFAPI
                 {
                     char nextChar = Helper.Peek(i + 1, stream); //Check what the next character is by using our Peek Helper method.
                     if (nextChar == '\0') //If next character is null. (Normally if we reached the end of the stream.)
-                        throw new VDFStreamException("Incomplete escape character detected!", lineCounter, characterCount); //Throw error.
+                        throw new VDFStreamException("Incomplete escape character detected!", lineCounter, characterCount); 
                     if (sb == null)
-                        sb = new StringBuilder(); //We are almost sure that this character is a valid escape character. We just need to make sure that our Stringbuilder is not set to null.
+                        sb = new StringBuilder(); 
                     sb.Append(Helper.ParseSecondPartOfEscapeChar(nextChar, lineCounter, characterCount + 1)); //Use our Helper method to convert the escape character to its Human readable character counterpart. It also checks if it is valid. If it isn't, it throws an error.
                     i += 2; //Since we already looked at the next character. No point in looking at it again. We just proceed to the character after it.
                     characterCount += 2; //Make sure that we add 2 not 1 to the character counter.
-                    continue; //We continue to the next iteration.
+                    continue; 
                 }
 
-                if (currentMode == Mode.comment) //If we are inside a comment block, no need to do anything else. Continue to the next character until we are in a new line.
+                if (currentMode == Mode.comment) //If we are inside a comment block, no need to do anything else until we hit a new line.
                     goto IterateI;
                 else if (currentMode == Mode.squareBracketTokens) //If we have detected a left square bracket beforehand and we haven't detected a right square bracket yet.
                 {
@@ -175,7 +175,7 @@ namespace Indieteur.VDFAPI
                 {
                     if (curChar == '"') //If we aren't inside a double quote already and we found '"'.
                     {
-                        currentMode = Mode.insideDoubleQuotes; //Set the current mode to insideDoubleQuotes.
+                        currentMode = Mode.insideDoubleQuotes; 
                         TryNewTokenOrKey(false); //Lets try a new token or key as the contents of the Stringbuilder might not have been turn into a token yet. (e.g. It wasn't inside a double quote.)
                         sb = new StringBuilder();
                     }
@@ -192,33 +192,33 @@ namespace Indieteur.VDFAPI
 
                         i += 2; //We already looked at the next character so we skip it and proceed to the character following it.
                         characterCount += 2; //Add 2 to the character count as well.
-                        continue; //Proceed to the character after the next character.
+                        continue; 
 
                     }
-                    else if (curChar == '{') //If the character is '{'
+                    else if (curChar == '{') 
                     {
                         if (previousString == null) //Let's first check if the StringBuilder hasn't been flushed yet.
                         {
-                            if (sb == null) //If the StringBuilder is null, throw an error. This happens when there's no previous word/character before '{' that isn't a part of a key already. Basically, our node doesn't have a name which isn't good. 
+                            if (sb == null) //This is needed in the case that there's no previous word/character before '{' that isn't a part of a key already. Basically, our node doesn't have a name which isn't good. 
                                 throw new VDFStreamException("Node name is set to null!", lineCounter, characterCount);
-                            SetPreviousStringToStringBuilder(); //Set our previousString variable to the contents of the StringBuilder.
+                            SetPreviousStringToStringBuilder(); 
                         }
 
                         VDFNode newNode = new VDFNode(previousString, this); //If we detected a '{', it means we are creating a new node so let's do it.
                         
-                        previousString = null; //We already processed the previousString and it's the name of our node so set the variable to null.
+                        previousString = null; //We already processed the previousString and it's the name of our node.
                         if (currentNode != null) //Check if we are already inside another node.
                         {
                             newNode.Parent = currentNode; //If we are, then the node we are creating is the children of our current node so let's set the parent reference of the new node to our current node.
-                            currentNode.Nodes.Add(newNode); //We must do the same for our currentNode but we have to add the new node to the list of children nodes of our current node this time.
+                            currentNode.Nodes.Add(newNode); //Add new node to the nodes of the parent node
                         }
                         else
                             Nodes.Add(newNode); //If we aren't, it means that the node we are creating is a root node so we have to add the new node to the nodes list of this class.
                         
                             
-                        currentNode = newNode; //Set the node that we are working on to our new node.
+                        currentNode = newNode; //WWe are now inside a child node
                     }
-                    else if (curChar == '}') //If the character is '}'
+                    else if (curChar == '}') 
                     {
                         TryNewTokenOrKey(false); //First, we must make sure that the Stringbuilder and the previousString has been taken care of. 
                         if (currentNode.Parent != null)
@@ -227,7 +227,7 @@ namespace Indieteur.VDFAPI
                             currentNode = null; //If it doesn't have any parent, it means that the node we are working on is a root node. We have to make sure that we set the currentNode to null as we have already reached the end of this current node.
                         
                     }
-                    else if (char.IsWhiteSpace(curChar)) //If the character is a whitespace
+                    else if (char.IsWhiteSpace(curChar))
                         TryNewTokenOrKey(false); //Since whitespaces are delimiters, we need to check if the Stringbuilder and the previousString has been taken care of. Sometimes, it isn't due to the previous word/characters before this whitespace isn't inside a double quotation.
                     else
                         goto AppendChar; //If the character isn't any of the above, then it's part of a token so we append it to our StringBuilder.
@@ -236,8 +236,8 @@ namespace Indieteur.VDFAPI
 
                 AppendChar:
                 if (sb == null)
-                    sb = new StringBuilder(); //If StringBuilder isn't initialized, initialize it to start a new token.
-                sb.Append(curChar); //Append the current character.
+                    sb = new StringBuilder();
+                sb.Append(curChar); 
 
                 IterateI:
                 ++i; //Add 1 to i to go to the next character.
@@ -288,9 +288,8 @@ namespace Indieteur.VDFAPI
         public string ToString(Delimiters delimiter, int StartingTabLevel = 0)
         {
             string strDelimiter = Helper.DelimiterEnumToString(delimiter); //Convert the selected delimiter to its String Value
-            StringBuilder sb = new StringBuilder(); //Instantiate our StringBuilder
-
-            //Make sure that the Nodes List is set to an object.
+            StringBuilder sb = new StringBuilder();
+            
             if (Nodes != null)
                 for (int i = 0; i < Nodes.Count; ++i)
                 {
@@ -299,7 +298,7 @@ namespace Indieteur.VDFAPI
                         strDelimiter = "";
                     sb.Append(node.ToString(delimiter, StartingTabLevel) + strDelimiter); //We must make sure that the child nodes have the same styling as their parent node so pass on the delimiter and the starting tab level.
                 }
-            return sb.ToString(); //return our built string.
+            return sb.ToString(); 
         }
 
         /* Helper Functions for the reader */
@@ -310,9 +309,9 @@ namespace Indieteur.VDFAPI
         void ResetReaderVariables()
         {
             if (Nodes == null)
-                Nodes = new List<VDFNode>(); //Create new nodes list if it is null
+                Nodes = new List<VDFNode>(); 
             else
-                Nodes.Clear(); //Just clear the nodes list if it is set already.
+                Nodes.Clear(); //Just clear the nodes list if it is set already. Should be more efficient.
             //Reset all the variables needed by the reader.
             currentNode = null;
             sb = null;
@@ -335,27 +334,27 @@ namespace Indieteur.VDFAPI
                     newToken = sb.ToString(); //Set the newToken to the value of the StringBuilder.
                 else if (!MustHaveNewToken) //If we aren't required to have a new token.
                 {
-                    if (sb == null) //If stringbuilder is not instantiated, then we just exit of the function. We don't need to do anything.
+                    if (sb == null) //No token was found in between calls of this method.
                         return;
-                    else //If it has conetents, then we set the newToken to the contents of the stringBuilder.
+                    else 
                         newToken = sb.ToString();
                 }
                 
                 //Since we have a unhandled previousString, it means that the current token we are working on and the previous one is a key-value pair. If that's the case, then it needs to be inside a node so we check that.
                 if (currentNode == null)
-                    throw new VDFStreamException("Key-value pair must be inside a node!", lineCounter, characterCount); //Throw error if we aren't inside a noed.
-                VDFKey key = new VDFKey(previousString, newToken, currentNode); //Create our key-value pair using the previousString and the newToken variable.
-                currentNode.Keys.Add(key); //Add our newly created key to the current node we are working on.
+                    throw new VDFStreamException("Key-value pair must be inside a node!", lineCounter, characterCount); 
+                VDFKey key = new VDFKey(previousString, newToken, currentNode); //key name first (previousString) before its value
+                currentNode.Keys.Add(key);
                 previousString = null; //We already know that the previous String is the name of the key and it has already been parsed, so set the referencing variable to null.
                 sb = null; //We do the same with stringbuilder.
             }
             else //If we haven't found any string yet or the previous strings have already been parsed.
             {
-                if (sb == null) //If Stringbuilder is not instantiated.
+                if (sb == null) 
                 {
-                    if (MustHaveNewToken) //If we are required to have a new token ad the stringbuilder is null, we throw an error.
+                    if (MustHaveNewToken) //If we are required to have a new token and the stringbuilder is null.
                         throw new VDFStreamException("Node name or Key name is set to null!", lineCounter, characterCount);
-                    else //If not, we just exit of the function.
+                    else 
                         return;
                 }
                 SetPreviousStringToStringBuilder(); //We do not know if this string is a name of a node or a name of a key so lets just store it for now and proceed to the next characters in order to find out.
@@ -368,9 +367,7 @@ namespace Indieteur.VDFAPI
         /// </summary>
         void SetPreviousStringToStringBuilder()
         {
-            previousString = sb.ToString(); //Set the previousString variable to the value of the stringbuilder.
-            //if (string.IsNullOrWhiteSpace(previousString)) //Since the previousString can only be a node name or a key name, then it should not be empty or whitespace. We need to check if that's the case and throw an error if it isn't.
-            //    throw new VDFStreamException("Node name or Key name is empty!", lineCounter, characterCount);
+            previousString = sb.ToString(); 
             sb = null; //We already have cached the value of the stringbuilder so we set it to null to handle the next token.
         }
 

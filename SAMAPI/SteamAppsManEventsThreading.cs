@@ -59,8 +59,8 @@ namespace Indieteur.SAMAPI
                 throw new ThreadStateException("A listener thread is already running!");
             Interlocked.Exchange(ref listenerShouldRun, 1); //Similar to listenerShouldRun = 1; but for thread safety reason, we need to do call this method instead.
             Interlocked.Exchange(ref listener_interval, Interval);
-            listenerThread = new Thread(new ThreadStart(ListenerThreadMethod)); //Create a new thread which will call the method ListenerThreadMethod.
-            listenerThread.Start(); //Start the thread.
+            listenerThread = new Thread(new ThreadStart(ListenerThreadMethod)); 
+            listenerThread.Start();
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Indieteur.SAMAPI
         {
             while (listenerShouldRun > 0) //Continue looping to listen for events until the main thread has set the listenerShouldRun variable to 0. (which means stop the thread.)
             {
-                CheckForEvents(); //Perform the event checking.
-                Thread.Sleep(listener_interval); //Sleep for the specified amount of interval.
+                CheckForEvents();
+                Thread.Sleep(listener_interval); //listener_interval is specified by the user.
             }
             
         }

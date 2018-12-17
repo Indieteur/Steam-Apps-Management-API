@@ -21,7 +21,7 @@ namespace Indieteur.VDFAPI
             int tokensLength = tokens.Count(); //Store the length of our tokens list to a variable 
             if (!CaseSensitive) //If CaseSensitve is set to false, then we convert the Name argument to lower case.
                 Name = Name.ToLower();
-            for (int i = 0; i < tokensLength; ++i) //Loop through all the BaseTokens.
+            for (int i = 0; i < tokensLength; ++i) 
             {
                 string tokenName; //This will store the name of the BaseToken that we are checking.
                 BaseToken currentToken = tokens.ElementAt(i); //Cache the BaseToken that we are working with.
@@ -30,10 +30,10 @@ namespace Indieteur.VDFAPI
                 else //If CasenSensitive is set  to false, set the tokenName variable to the lower case equivalent of the currentToken's name.
                     tokenName = currentToken.Name.ToLower();
 
-                if (tokenName == Name) //Check if name of the currentToken and the Name argument matches. If it does, we found our token. Return it back to the callee.
+                if (tokenName == Name) 
                     return currentToken;
             }
-            if (throwErrorIfNotFound) //We're done looping through our collection and we haven't found the currentToken. Throw an error if this is the case.
+            if (throwErrorIfNotFound) //We're done looping through our collection and we haven't found the currentToken.
                 throw new TokenNotFoundException(Name + " has not been found in the collection!");
             return null; //If throwError is set to false, then return null instead.
         }
@@ -50,7 +50,7 @@ namespace Indieteur.VDFAPI
             int tokensLength = tokens.Count(); //Store the length of our tokens list to a variable 
             if (!CaseSensitive) //If CaseSensitve is set to false, then we convert the Name argument to lower case.
                 Name = Name.ToLower();
-            for (int i = 0; i < tokensLength; ++i) //Loop through all the BaseTokens.
+            for (int i = 0; i < tokensLength; ++i) 
             {
                 string tokenName; //This will store the name of the BaseToken that we are checking.
                 BaseToken currentToken = tokens.ElementAt(i); //Cache the BaseToken that we are working with.
@@ -59,10 +59,10 @@ namespace Indieteur.VDFAPI
                 else //If CasenSensitive is set  to false, set the tokenName variable to the lower case equivalent of the currentToken's name.
                     tokenName = currentToken.Name.ToLower();
 
-                if (tokenName == Name) //Check if name of the currentToken and the Name argument matches. If it does, we found our token. Return its index back to the calling method.
+                if (tokenName == Name) 
                     return i;
             }
-            if (throwErrorIfNotFound) //We're done looping through our collection and we haven't found the currentToken. Throw an error if this is the case.
+            if (throwErrorIfNotFound) //We're done looping through our collection and we haven't found the currentToken. 
                 throw new TokenNotFoundException(Name + " has not been found in the collection!");
             return -1; //If throwError is set to false, then return -1 instead.
         }

@@ -9,21 +9,18 @@ using System.Windows.Forms;
 
 namespace Demo
 {
-    static class Helper
-    {
-        
-    }
 
     public partial class frmDemoVDF : Form
     {
-        const string DEFAULT_NODE_NAME = "New Node"; //Will be the default name of our node when created.
-        const string DEFAULT_KEY_NAME = "New Key"; //Will be the default name of our key when created.
-        const string DEFAULT_KEY_VALUE = "New Value"; //Will be the default value of our key when created.
+        //default values
+        const string DEFAULT_NODE_NAME = "New Node";
+        const string DEFAULT_KEY_NAME = "New Key";
+        const string DEFAULT_KEY_VALUE = "New Value"; 
 
        void ResetGUIAndVariables()
         {
             GUIUpdate_NoneSelected(); //Make sure to reset our GUI
-            selectedToken = null; //And nullify our selectedToken variable.
+            selectedToken = null; 
         }
         
         bool AddRemoveSaveButtonErrorHandling()

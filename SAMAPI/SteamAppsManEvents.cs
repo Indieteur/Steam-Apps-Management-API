@@ -50,7 +50,7 @@ namespace Indieteur.SAMAPI
         /// </summary>
         public void CheckForEvents()
         {
-            foreach (SteamApp sapp in _steamapps) //loop through all the steam applications.
+            foreach (SteamApp sapp in _steamapps) 
             {
                 lock (sapp) //lock the steam app class for thread safety reasons.
                 {
@@ -59,7 +59,7 @@ namespace Indieteur.SAMAPI
                     bool isUpdating = sapp._isUpdating;
                     Process proc = sapp._runningProc;
 
-                    sapp.UpdateAppStatus(); //Perform the update.
+                    sapp.UpdateAppStatus(); 
 
                     //Compare the values before the update was performed and after the update was performed. Check if they match. If they don't, it means something has changed so call the event associated with the change.
                     if (!isRunning && sapp._isRunning) 

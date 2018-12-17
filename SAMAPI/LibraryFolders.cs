@@ -20,15 +20,15 @@ namespace Indieteur.SAMAPI
         public static List<string> RetrieveLibraryFolders(string MainSteamInstallPath)
         {
             List<string> libraryFolders = new List<string>(1); //Initialize our list of library folders with a count of 1 as we know that the InstallDir is a library folder.
-            libraryFolders.Add(MainSteamInstallPath); //Add the MainSteamInstallPath to our list of library folders.
+            libraryFolders.Add(MainSteamInstallPath);
 
             //Let us now locate the file that contains the list of all the steam library folders in the machine.
             string LibFileFullPath = MainSteamInstallPath + "\\" + SteamAppsManager.STEAM_APPS_DIRNAME + "\\" + LIBRARY_FOLDERS_NAME; //The full path of the library folders file.
 
             if (!File.Exists(LibFileFullPath))
-                return libraryFolders; //Check if file Library folders file exists. If it doesn't, we don't have anything else to do here.
+                return libraryFolders; 
 
-            VDFData vdfReader = new VDFData(LibFileFullPath); //Parse the contents of the Library Folders file.
+            VDFData vdfReader = new VDFData(LibFileFullPath);
 
             VDFNode vNode = vdfReader.Nodes.FindNode(LIBFILE_NODE_NAME); //Find the node that contains the list of steam libraries.
 
@@ -39,7 +39,7 @@ namespace Indieteur.SAMAPI
             {
                 if (vKey.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
                 {
-                    libraryFolders.Add(vKey.Value); //Add the value of the key as we know it is a path to the library.
+                    libraryFolders.Add(vKey.Value); 
                 }
             }
             return libraryFolders;
@@ -52,12 +52,12 @@ namespace Indieteur.SAMAPI
         /// <returns></returns>
         public static List<SteamApp> RetrieveSteamAppsUnderLibraryFolders(IEnumerable<string> LibPaths)
         {
-            List<SteamApp> steamapps = new List<SteamApp>(); //Initalize our list of steam applications.
-            foreach (string libpath in LibPaths) //loop through all the libraries and call the RetrieveAppsUnderLibraryFolder method.
+            List<SteamApp> steamapps = new List<SteamApp>();
+            foreach (string libpath in LibPaths) 
             {
                 steamapps.AddRange(RetrieveAppsUnderLibraryFolder(libpath));
             }
-            return steamapps; //Return our steamapps list.
+            return steamapps; 
         }
 
 
@@ -69,14 +69,14 @@ namespace Indieteur.SAMAPI
         public static List<SteamApp> RetrieveAppsUnderLibraryFolder(string LibPath)
         {
 
-            List<SteamApp> steamapps = new List<SteamApp>(); //Initialize our list of steam applications.
+            List<SteamApp> steamapps = new List<SteamApp>(); 
            
             string steamAppsFolderPath = LibPath + "\\" + SteamAppsManager.STEAM_APPS_DIRNAME; //This is the folder that contains the application manifests.
-            if (!Directory.Exists(steamAppsFolderPath)) //Skip Library if not found.
+            if (!Directory.Exists(steamAppsFolderPath))
                 return steamapps;
             string[] manifests = Directory.GetFiles(steamAppsFolderPath, APPMANIFEST_SEARCH_STRING); //Search for the application manifests under the SteamApps Folder of the library.
 
-            if (manifests.Length == 0) //If we didn't find anything then return an empty list.
+            if (manifests.Length == 0) 
                 return steamapps;
 
             foreach (string manifest in manifests) //Parse all our manifest file in to a SteamApp instance.

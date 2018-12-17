@@ -27,7 +27,7 @@ namespace Demo
         private void frmDemo_Load(object sender, EventArgs e)
         {
             string steamdir = SteamAppsManager.GetSteamDirectory(); //Set the initial directory of the openFileDialog control by calling the GetSteamDirectory static method from the SteamAppsMan class. It'll return empty if Steam Directory doesn't exist. 
-            if (!string.IsNullOrWhiteSpace(steamdir)) //If the steamdir is not null or whitespace, append the "steamapps" directory name.
+            if (!string.IsNullOrWhiteSpace(steamdir)) 
                 steamdir += "\\steamapps";
             openFileDialog.InitialDirectory = steamdir;
         }
@@ -37,11 +37,11 @@ namespace Demo
             DialogResult dialogResult = openFileDialog.ShowDialog(this); //Show our open file dialog and store its result on a variable.
             string fileName = openFileDialog.FileName; //Cache our filename as we are going to reset the dialogbox
             ClearDialogBoxes();
-            if (dialogResult == DialogResult.Cancel) //If user presses the cancel button, exit from the method.
+            if (dialogResult == DialogResult.Cancel) 
                 return;
-            ResetGUIAndVariables(); //Reset our GUI and the variables to defaults.
-            vdfData.LoadData(fileName); //Call LoadData function from our vdfData class instance.
-            LoadVDFDataToTreeView(vdfData); //Load our VDF Data to the TreeView control.
+            ResetGUIAndVariables(); 
+            vdfData.LoadData(fileName); 
+            LoadVDFDataToTreeView(vdfData); 
         }
 
         private void btnSaveToFile_Click(object sender, EventArgs e)
@@ -49,9 +49,9 @@ namespace Demo
             DialogResult dialogResult = saveFileDialog.ShowDialog(this); //Show our save file dialog and store its result on a variable.
             string fileName = saveFileDialog.FileName; //Cache our filename as we are going to reset the dialogbox
             ClearDialogBoxes();
-            if (dialogResult == DialogResult.Cancel) //If user presses the cancel button, exit from the method.
+            if (dialogResult == DialogResult.Cancel) 
                 return;
-            vdfData.SaveToFile(fileName, true);//Call the SaveToFile method of the VDFData class instance. Also, set the overwrite argument to true as the savefiledialog will prompt the user if a file will be overwritten.
+            vdfData.SaveToFile(fileName, true);
 
         }
 

@@ -72,28 +72,27 @@ namespace Indieteur.VDFAPI
 
 
 
-            StringBuilder sb = new StringBuilder(tab + "\"" + Helper.UnformatString(Name) + "\""); //Begin building our string by starting with the name of our 
+            StringBuilder sb = new StringBuilder(tab + "\"" + Helper.UnformatString(Name) + "\""); //Begin building our string by starting with the name of our VDFData
 
             sb.Append(strDelimiter + tab + "{" + strDelimiter); // Append the delimiter and then the '{' character which tells us that we are within the contents of the node and then another delimiter
             if (TabLevel >= 0)
                 ++TabLevel; //Make sure to increase the TabLevel if it isn't set to a negative number.
 
-            //Make sure that the Keys List is set to an object.
+         
             if (Keys != null)
                 foreach (VDFKey key in Keys) //Append all the keys under this node to the string
                 {
                     sb.Append(key.ToString(TabLevel) + strDelimiter); //Append the string value of the single key element. We must also make sure that the string returned has the correct amount of tabs at the beginning.
                 }
-
-            //Make sure that the Nodes List is set to an object.
+            
             if (Nodes != null)
                 foreach (VDFNode node in Nodes) //Append all the nodes under this node and their children to the string
                 {
                     sb.Append(node.ToString(delimiter, TabLevel) + strDelimiter); //We must make sure that the child nodes have the same styling as their parent node so pass on the delimiter and the tab level.
                 }
 
-            sb.Append(tab + "}"); //Close of our node with '}'. Also, make sure that the correct number of tabs is appended before the closing curly brackets.
-            return sb.ToString(); //return our built string.
+            sb.Append(tab + "}"); //Close off our node with '}'. Also, make sure that the correct number of tabs is appended before the closing curly brackets.
+            return sb.ToString(); 
         }
     }
 
@@ -109,7 +108,7 @@ namespace Indieteur.VDFAPI
 
         public VDFKey(string name, string value, VDFNode parent)
         {
-            Name = name ?? throw new VDFStreamException("Name of the Key cannot be Null!");// The key cannot have a null name so throw an error.
+            Name = name ?? throw new VDFStreamException("Name of the Key cannot be Null!");
 
             Parent = parent ?? throw new ArgumentNullException("parent");
             Value = value;
@@ -130,7 +129,7 @@ namespace Indieteur.VDFAPI
         public string ToString(int TabLevel)
         {
             string tab = (TabLevel > 0) ? Helper.Tabify(TabLevel) : ""; //If tab level is greater than 0 then we call the tabify helper method if not, just set the tab string variable to "".
-            return tab + "\"" + Helper.UnformatString(Name) + "\" \"" + Helper.UnformatString(Value) + "\""; //Create and return our VDF key string. Make sure to use the correct format for the Name and Value variables.
+            return tab + "\"" + Helper.UnformatString(Name) + "\" \"" + Helper.UnformatString(Value) + "\""; //Make sure to use the correct format for the Name and Value variables.
         }
 
     }
@@ -150,7 +149,7 @@ namespace Indieteur.VDFAPI
             }
             set
             {
-                _name = value ?? throw new VDFStreamException("Name cannot be Null!"); //Check if value is null, if it is throw error.
+                _name = value ?? throw new VDFStreamException("Name cannot be Null!"); 
             }
         }
         /// <summary>
