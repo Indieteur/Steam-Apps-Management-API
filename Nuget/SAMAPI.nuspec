@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Indieteur.SteamAppsManAndVDFAPI</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Indieteur.SteamAppsManAndVDFAPI</title>
     <authors>Indieteur</authors>
     <licenseUrl>https://github.com/Indieteur/Steam-Apps-Management-API/blob/master/LICENSE</licenseUrl>
