@@ -38,7 +38,8 @@ namespace Demo
 
         private void frmMainDemo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SAM.EventListenerMustRun && SAM.EventListenerRunning) //If the user did not stop the event listener before closing the form.
+            
+            if (SAM !=null && SAM.EventListenerMustRun && SAM.EventListenerRunning) //If the user did not stop the event listener before closing the form.
                 SAM.StopListeningForEvents();
         }
 

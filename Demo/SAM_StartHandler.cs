@@ -22,7 +22,7 @@ namespace Demo
                 NullReferenceException nullRefException = ex as NullReferenceException;  //The library will throw a null reference exception when it cannot find installation directory.
                 if (nullRefException != null) 
                 {
-                    MessageBox.Show("Steam installation folder was not found! Please provide the path to the Steam installation folder.", "Steam App Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Steam installation folder was not found or is invalid! Please provide the path to the Steam installation folder.", "Steam App Manager", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DialogResult dResult = folderBrowse.ShowDialog(); //Show the dialog which will allow the user to browse the steam installation directory manually.
                     if (dResult == DialogResult.Cancel)//If the user aborts the operation...
                     {

@@ -59,7 +59,7 @@ namespace Indieteur.SAMAPI
         /// </summary>
         public SteamAppsManager()
         {
-            _installdir = GetSteamDirectory(); 
+            _installdir = GetSteamDirectory();
             if (string.IsNullOrWhiteSpace(_installdir))
                 throw new NullReferenceException("Steam Directory was not found!");
             Init();
@@ -110,9 +110,11 @@ namespace Indieteur.SAMAPI
             {
                 if (key != null)
                 {
+                 
                     Object value = key.GetValue(REG_INSTALLPATH_KEY); //Find the "InstallPath" value in the Steam Registry Key. It'll return it as an object which we will need to cast
                     if (value != null)
                     {
+                        
                         return (string)value; //Value is a string so we should be able to cast it without any problems.
                     }
                 }

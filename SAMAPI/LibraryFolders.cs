@@ -81,7 +81,10 @@ namespace Indieteur.SAMAPI
 
             foreach (string manifest in manifests) //Parse all our manifest file in to a SteamApp instance.
             {
-                steamapps.Add(new SteamApp(manifest, LibPath));
+                VDFData parsedData;
+                bool parseResult = VDFData.TryParseFile(manifest, out parsedData); //Added this lines of code as there might be App manifests that are corrupted or empty.
+                if (parseResult && parsedData.Nodes != null && parsedData.Nodes.Count != 0)
+                    steamapps.Add(new SteamApp(parsedData, LibPath));
             }
             return steamapps;
         }

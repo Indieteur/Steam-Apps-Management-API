@@ -360,6 +360,8 @@ namespace Indieteur.VDFAPI
                 SetPreviousStringToStringBuilder(); //We do not know if this string is a name of a node or a name of a key so lets just store it for now and proceed to the next characters in order to find out.
             }
 
+            
+
         }
 
         /// <summary>
@@ -391,6 +393,28 @@ namespace Indieteur.VDFAPI
             /// </summary>
             squareBracketTokens,
             none
+        }
+
+        /// <summary>
+        /// Tries to parse a VDF Data File and returns true if it is successful. The resulting VDF Data structure is also returned.
+        /// </summary>
+        /// <param name="path">The path to the VDF File.</param>
+        /// <param name="result">The reference to the variable that will contain the result of the parse if it is successful.</param>
+        /// <returns></returns>
+        public static bool TryParseFile(string path, out VDFData result)
+        {
+            try
+            {
+                result = new VDFData(path);
+
+            }
+            catch
+            {
+                result = null;
+                return false;
+            }
+
+            return true;
         }
     }
 
