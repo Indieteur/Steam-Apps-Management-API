@@ -4,7 +4,7 @@ There are two libraries included in this solution:
 * **Steam Application Management API** -- This library provides basic information about the Steam Applications installed on the local computer. It also allows you to launch an app as well as listen for events like if a Steam App is being launched and/or is being updated. The library can also capture the process associated with the application (by guessing. It isn't completely foolproof.)
 
 # Compatibility
-The solution itself was created using **Visual Studio 2017** so you'll probably only be able to open it through that however, if you are using the **prebuilt library (.dll)** or the [**Nuget package**](https://www.nuget.org/packages/Indieteur.SteamAppsManAndVDFAPI). It's target framework is **.Net Framework 4.5**.
+The solution itself was created using **Visual Studio 2017** so you'll probably only be able to open it through that however, if you are using the **prebuilt library (.dll)** or the [**Nuget package**](https://www.nuget.org/packages/Indieteur.SteamAppsManAndVDFAPI/1.0.1). It's target framework is **.Net Framework 4.5**.
 
 # How to Use
 Please see the [Wiki](https://github.com/Indieteur/Steam-Apps-Management-API/wiki) for a detailed how to use. You can also download the **Demo** project for further help.
