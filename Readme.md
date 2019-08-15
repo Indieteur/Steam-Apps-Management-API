@@ -18,4 +18,4 @@ Currently, I'm **working full time making open source software** and free assets
 
 * [![ko-fi](https://www.ko-fi.com/img/donate_sm.png)](https://ko-fi.com/Y8Y8M5JV) if you want **make a one time donation**.
 
-* [![Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/indieteur) if you want to **donate evey month**.
+* [![Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/indieteur) if you want to **donate every month**.
