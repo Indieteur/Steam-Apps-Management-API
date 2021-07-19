@@ -10,7 +10,7 @@ namespace Indieteur.SAMAPI
         const string LIBRARY_FOLDERS_NAME = "libraryfolders.vdf"; //The default file name of the file which lists all the library folders of steam.
         const string LIBFILE_NODE_NAME = "LibraryFolders"; //The node name inside the Library Folders file which contains the list of our steam libraries
         const string APPMANIFEST_SEARCH_STRING = "appmanifest_*.acf"; //The search pattern to be used for searching steam apps manifest.
-
+        const string LIBRARYFOLDER_NODE_PATH_NAME = "path"; //The search pattern to be used for searching steam apps manifest.
 
         /// <summary>
         /// Lists all the library folders of the steam installation.
@@ -42,6 +42,19 @@ namespace Indieteur.SAMAPI
                     libraryFolders.Add(vKey.Value); 
                 }
             }
+
+            foreach (VDFNode node in vNode.Nodes) //List all the keys inside the vNode node.
+            {
+                if (node.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
+                {
+                    var pathKey = node.Keys.FindKey(LIBRARYFOLDER_NODE_PATH_NAME);
+                    if (pathKey == null)
+                        continue;
+
+                    libraryFolders.Add(pathKey.Value);
+                }
+            }
+
             return libraryFolders;
         }
 
