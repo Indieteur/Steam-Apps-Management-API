@@ -22,6 +22,7 @@ namespace Indieteur.SAMAPI
 
         /// <summary>
         /// The name of the Steam application.
+        /// This name may be empty for old/legacy packages, such as old installs of Source 2007 Dedicated Server.
         /// </summary>
         public string Name { get { return _Name; } }
         /// <summary>
@@ -124,12 +125,10 @@ namespace Indieteur.SAMAPI
             if (vNode.Keys == null || vNode.Keys.Count == 0)
                 throw new NullReferenceException("Node " + MANIFEST_NODE + " list of keys is either null or empty!");
 
-            VDFKey vKey = vNode.Keys.FindKey(MANIFEST_KEY_NAME); //Locate our first key which will be the name of the app.
+            VDFKey vKey;
 
-            if (vKey != null) 
-                _Name = vKey.Value;
-            else
-                throw new NullReferenceException("Key pertaining to the name of the app is not found under " + MANIFEST_NODE + " node.");
+            // Not all applications have a name; please note applications such as "Source 2007 Dedicated Server" (ID: 310)
+            _Name = vNode.Keys.FindKey(MANIFEST_KEY_NAME)?.Value;
 
             vKey = vNode.Keys.FindKey(MANIFEST_KEY_APPID); 
 
@@ -156,7 +155,6 @@ namespace Indieteur.SAMAPI
             }
             else
                 throw new NullReferenceException("Key pertaining to the directory name containing the app under " + MANIFEST_NODE + " node is not found!");
-
         }
 
         /// <summary>
