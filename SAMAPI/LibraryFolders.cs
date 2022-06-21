@@ -32,26 +32,32 @@ namespace Indieteur.SAMAPI
 
             VDFNode vNode = vdfReader.Nodes.FindNode(LIBFILE_NODE_NAME); //Find the node that contains the list of steam libraries.
 
-            if (vNode == null || vNode.Keys == null || vNode.Keys.Count == 0) //If it isn't found or the Nodes key is null or empty, there's nothing else to be done. Return the list of libraryfolders that we already have. (which is just MainSteamInstallPath)
+            if (vNode == null) //If it isn't found or the Nodes key is null or empty, there's nothing else to be done. Return the list of libraryfolders that we already have. (which is just MainSteamInstallPath)
                 return libraryFolders;
 
-            foreach (VDFKey vKey in vNode.Keys) //List all the keys inside the vNode node.
+            if (vNode.Keys != null)
             {
-                if (vKey.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
+                foreach (VDFKey vKey in vNode.Keys) //List all the keys inside the vNode node.
                 {
-                    libraryFolders.Add(vKey.Value); 
+                    if (vKey.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
+                    {
+                        libraryFolders.Add(vKey.Value);
+                    }
                 }
             }
 
-            foreach (VDFNode node in vNode.Nodes) //List all the keys inside the vNode node.
+            if (vNode.Nodes != null)
             {
-                if (node.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
+                foreach (VDFNode node in vNode.Nodes) //List all the keys inside the vNode node.
                 {
-                    var pathKey = node.Keys.FindKey(LIBRARYFOLDER_NODE_PATH_NAME);
-                    if (pathKey == null)
-                        continue;
+                    if (node.Name.IsInteger()) //As per what I've seen from the Library Folders file, it seems that the key name for the location of the folders itself is a number so check if the key name is a number.
+                    {
+                        var pathKey = node.Keys.FindKey(LIBRARYFOLDER_NODE_PATH_NAME);
+                        if (pathKey == null)
+                            continue;
 
-                    libraryFolders.Add(pathKey.Value);
+                        libraryFolders.Add(pathKey.Value);
+                    }
                 }
             }
 
